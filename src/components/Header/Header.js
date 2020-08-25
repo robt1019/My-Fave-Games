@@ -1,9 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import LoginButton from "../LoginButton/LoginButton";
+import LogoutButton from "../LogoutButton/LogoutButton";
+import { useAuth0 } from "@auth0/auth0-react";
 
-const header = () => {
+const Header = () => {
+  const { isAuthenticated } = useAuth0();
+
   return (
     <div>
+      {isAuthenticated ? <LogoutButton /> : <LoginButton />}
       <nav>
         <ul>
           <li>
@@ -21,4 +27,4 @@ const header = () => {
   );
 };
 
-export default header;
+export default Header;

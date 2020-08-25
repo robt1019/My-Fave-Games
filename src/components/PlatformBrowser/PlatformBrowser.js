@@ -6,7 +6,7 @@ function Home() {
   const [platforms, setPlatforms] = useState([]);
 
   useEffect(() => {
-    faveGamesService.platformsByIds("48,130,6", (results) => {
+    faveGamesService.platformsByIds("48,130,6,49,34, 39", (results) => {
       setPlatforms(results);
     });
   }, []);
