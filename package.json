@@ -17,7 +17,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy:dev": "git push development master",
+    "deploy-force:dev": "git push development master -f",
+    "logs:dev": "heroku logs --remote=development --tail"
   },
   "eslintConfig": {
     "extends": "react-app"
