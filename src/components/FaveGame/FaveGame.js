@@ -1,10 +1,11 @@
 import React from "react";
 
-const faveGame = (props) => {
+const FaveGame = () => {
   return (
-  <div>
-    <h3>{props.}</h3>
-  </div>);
+    <div>
+      <h3>A fave game</h3>
+    </div>
+  );
 };
 
-export default faveGame;
+export default FaveGame;

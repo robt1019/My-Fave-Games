@@ -1,7 +1,7 @@
 import React from "react";
 import FaveGame from "../FaveGame/FaveGame";
 
-const faveGames = () => {
+const FaveGames = () => {
   return (
     <div>
       Fave Games
@@ -10,4 +10,4 @@ const faveGames = () => {
   );
 };
 
-export default faveGames;
+export default FaveGames;
