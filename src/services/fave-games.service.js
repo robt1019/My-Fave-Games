@@ -4,13 +4,28 @@ const searchGames = (searchTerm, callback) => {
     .then((data) => callback(data));
 };
 
+const gameById = (id, callback) => {
+  fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/games/${id}`)
+    .then((response) => response.json())
+    .then((data) => callback(data));
+};
+
 const platformsByIds = (ids, callback) => {
   fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/platforms?platformIds=${ids}`)
     .then((response) => response.json())
     .then((data) => callback(data));
 };
 
-const createFaveGame = (faveGame) => {};
+const createFaveGame = (token, faveGame) => {
+  fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/my-fave-games`, {
+    method: "POST",
+    body: JSON.stringify(faveGame),
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+};
 
 const updateFaveGame = (faveGame) => {};
 
@@ -24,6 +39,7 @@ const userFaveGames = (userId, callback) => {
 
 export default {
   searchGames,
+  gameById,
   platformsByIds,
   createFaveGame,
   updateFaveGame,

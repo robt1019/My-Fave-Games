@@ -19,8 +19,8 @@ const UserFaveGames = () => {
   return (
     <div>
       <h1>User fave games</h1>
-      {faveGames.map(() => (
-        <FaveGame />
+      {faveGames.map((g) => (
+        <FaveGame faveGame={g} />
       ))}
     </div>
   );
