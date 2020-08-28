@@ -15,6 +15,8 @@ function App() {
       domain="my-fave-games-dev.eu.auth0.com"
       clientId="Ds9RwOfpdFO79wHCM4xEuWN4PqVWxxeS"
       scope="offline_access"
+      useRefreshTokens={true}
+      cacheLocation="localstorage"
       audience={process.env.REACT_APP_FAVE_GAMES_API}
       redirectUri={window.location.origin}
     >
