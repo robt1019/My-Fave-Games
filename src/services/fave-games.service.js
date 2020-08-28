@@ -16,7 +16,7 @@ const platformsByIds = (ids, callback) => {
     .then((data) => callback(data));
 };
 
-const createFaveGame = (token, faveGame) => {
+const createFaveGame = (token, faveGame, callback) => {
   fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/my-fave-games`, {
     method: "POST",
     body: JSON.stringify(faveGame),
@@ -24,12 +24,18 @@ const createFaveGame = (token, faveGame) => {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-  });
+  }).then(() => callback());
 };
 
-const updateFaveGame = (faveGame) => {};
-
-const deleteFaveGame = (faveGameId) => {};
+const deleteFaveGame = (token, faveGameId, callback) => {
+  fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/my-fave-games/${faveGameId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  }).then(() => callback());
+};
 
 const userFaveGames = (userId, callback) => {
   fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/my-fave-games/${userId}`)
@@ -42,7 +48,6 @@ export default {
   gameById,
   platformsByIds,
   createFaveGame,
-  updateFaveGame,
   deleteFaveGame,
   userFaveGames,
 };

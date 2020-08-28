@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FaveGame from "../FaveGame/FaveGame";
+import FaveGameForm from "../FaveGameForm/FaveGameForm";
 import { useAuth0 } from "@auth0/auth0-react";
 import faveGamesService from "../../services/fave-games.service";
 
@@ -9,6 +10,7 @@ const FaveGames = () => {
   const [userInfo, setUserInfo] = useState({});
   const [token, setToken] = useState();
   const [faveGames, setFaveGames] = useState([]);
+  const [showGameModal, setShowGameModal] = useState(false);
 
   useEffect(() => {
     async function getUserStuff() {
@@ -21,37 +23,54 @@ const FaveGames = () => {
           setFaveGames(games);
         });
       } catch (err) {
-        alert("you are not logged in. Maybe do that?");
+        console.error(err);
       }
     }
     getUserStuff();
   }, [getAccessTokenSilently, getIdTokenClaims]);
 
   const addNewGame = () => {
-    // faveGamesService.createFaveGame(token, {
-    //   gameId: 7346,
-    //   platformId: 130,
-    // });
-    faveGamesService.createFaveGame(token, {
-      gameId: 26758,
-      platformId: 130,
+    setShowGameModal(true);
+  };
+
+  const gameAdded = (game) => {
+    faveGamesService.createFaveGame(token, game, () => {
+      setFaveGames([...faveGames, game]);
+    });
+  };
+
+  const deleteGame = (gameId) => {
+    faveGamesService.deleteFaveGame(token, gameId, () => {
+      setFaveGames(faveGames.filter((g) => g.id !== gameId));
     });
   };
 
   return (
-    <div>
-      <h1>My fave games</h1>
-      <button
-        onClick={() => {
-          addNewGame();
-        }}
-      >
-        +
-      </button>
-      {faveGames.map((g) => (
-        <FaveGame faveGame={g} />
-      ))}
-    </div>
+    <React.Fragment>
+      {!showGameModal ? (
+        <div>
+          <h1>My fave games</h1>
+          <button
+            onClick={() => {
+              addNewGame();
+            }}
+          >
+            +
+          </button>
+          {faveGames.map((g) => (
+            <React.Fragment>
+              <FaveGame faveGame={g} />
+              <button onClick={() => deleteGame(g.id)}>Delete</button>
+            </React.Fragment>
+          ))}
+        </div>
+      ) : (
+        <FaveGameForm
+          gameAdded={(game) => gameAdded(game)}
+          formClosed={() => setShowGameModal(false)}
+        />
+      )}
+    </React.Fragment>
   );
 };
 
