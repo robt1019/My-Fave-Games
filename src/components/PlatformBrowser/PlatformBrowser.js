@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PlatformCard from "../PlatformCard/PlatformCard";
 import faveGamesService from "../../services/fave-games.service";
+import { Link } from "react-router-dom";
 
 function Home() {
   const [platforms, setPlatforms] = useState([]);
@@ -15,7 +16,11 @@ function Home() {
     <div>
       <h1>Fave games by platform</h1>
       {platforms && platforms.length ? (
-        platforms.map((p) => <PlatformCard key={p.id} platform={p} />)
+        platforms.map((p) => (
+          <Link to={`platform-fave-games/${p.id}`}>
+            <PlatformCard platform={p} key={p.id} />
+          </Link>
+        ))
       ) : (
         <React.Fragment />
       )}

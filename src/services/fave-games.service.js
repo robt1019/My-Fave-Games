@@ -16,6 +16,14 @@ const platformsByIds = (ids, callback) => {
     .then((data) => callback(data));
 };
 
+const faveGamesByPlatform = (platformId, callback) => {
+  fetch(
+    `${process.env.REACT_APP_FAVE_GAMES_API}/platform-fave-games/${platformId}`
+  )
+    .then((response) => response.json())
+    .then((data) => callback(data));
+};
+
 const createFaveGame = (token, faveGame, callback) => {
   fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/my-fave-games`, {
     method: "POST",
@@ -47,6 +55,7 @@ export default {
   searchGames,
   gameById,
   platformsByIds,
+  faveGamesByPlatform,
   createFaveGame,
   deleteFaveGame,
   userFaveGames,
