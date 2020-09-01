@@ -15,9 +15,11 @@ const Header = () => {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/my-fave-games">My fave games</Link>
-          </li>
+          {isAuthenticated ? (
+            <li>
+              <Link to="/my-fave-games">My fave games</Link>
+            </li>
+          ) : null}
           <li>
             <Link to="/user-search">Find a user</Link>
           </li>

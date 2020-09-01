@@ -59,6 +59,17 @@ const userFaveGames = (userId, callback) => {
     .then((data) => callback(data));
 };
 
+const myFaveGames = (token, callback) => {
+  fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/my-fave-games`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => callback(data));
+};
+
 export default {
   searchGames,
   searchUsers,
@@ -68,4 +79,5 @@ export default {
   createFaveGame,
   deleteFaveGame,
   userFaveGames,
+  myFaveGames,
 };

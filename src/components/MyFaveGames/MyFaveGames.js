@@ -7,7 +7,6 @@ import faveGamesService from "../../services/fave-games.service";
 const FaveGames = () => {
   const { getAccessTokenSilently, getIdTokenClaims } = useAuth0();
 
-  const [userInfo, setUserInfo] = useState({});
   const [token, setToken] = useState();
   const [faveGames, setFaveGames] = useState([]);
   const [showGameModal, setShowGameModal] = useState(false);
@@ -15,11 +14,9 @@ const FaveGames = () => {
   useEffect(() => {
     async function getUserStuff() {
       try {
-        const userInfo = await getIdTokenClaims();
-        setUserInfo(userInfo);
         const accessToken = await getAccessTokenSilently();
         setToken(accessToken);
-        faveGamesService.userFaveGames(userInfo.sub, (games) => {
+        faveGamesService.myFaveGames(accessToken, (games) => {
           setFaveGames(games);
         });
       } catch (err) {

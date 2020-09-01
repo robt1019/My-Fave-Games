@@ -20,7 +20,7 @@ const UserFaveGames = () => {
     <div>
       <h1>User fave games</h1>
       {faveGames.map((g) => (
-        <FaveGame faveGame={g} />
+        <FaveGame key={g.id} faveGame={g} />
       ))}
     </div>
   );
