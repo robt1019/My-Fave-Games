@@ -31,12 +31,16 @@ const UserFaveGames = () => {
         />
         <input type="submit" value="Search for user"></input>
       </form>
-      {results.map((user) => (
-        <Link key={user.userId} to={`fave-games/${user.userId}`}>
-          {user.userId}
-          {user.name ? `-${user.name}` : ""}
-        </Link>
-      ))}
+      <ul>
+        {results.map((user) => (
+          <li key={user.userId}>
+            <Link to={`fave-games/${user.userId}`}>
+              {user.name ? `${user.name}: ` : ""}
+              {user.userId}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </React.Fragment>
   );
 };
