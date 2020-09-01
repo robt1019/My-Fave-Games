@@ -32,7 +32,9 @@ const createFaveGame = (token, faveGame, callback) => {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-  }).then(() => callback());
+  })
+    .then((response) => response.json())
+    .then((createdGame) => callback(createdGame));
 };
 
 const deleteFaveGame = (token, faveGameId, callback) => {

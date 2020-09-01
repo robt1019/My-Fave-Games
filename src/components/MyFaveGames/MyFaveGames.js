@@ -34,8 +34,8 @@ const FaveGames = () => {
   };
 
   const gameAdded = (game) => {
-    faveGamesService.createFaveGame(token, game, () => {
-      setFaveGames([...faveGames, game]);
+    faveGamesService.createFaveGame(token, game, (createdGame) => {
+      setFaveGames([...faveGames, createdGame]);
     });
   };
 
@@ -58,7 +58,7 @@ const FaveGames = () => {
             +
           </button>
           {faveGames.map((g) => (
-            <React.Fragment>
+            <React.Fragment key={g.id}>
               <FaveGame faveGame={g} />
               <button onClick={() => deleteGame(g.id)}>Delete</button>
             </React.Fragment>

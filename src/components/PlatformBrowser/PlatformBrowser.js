@@ -17,8 +17,8 @@ function Home() {
       <h1>Fave games by platform</h1>
       {platforms && platforms.length ? (
         platforms.map((p) => (
-          <Link to={`platform-fave-games/${p.id}`}>
-            <PlatformCard platform={p} key={p.id} />
+          <Link key={p.id} to={`platform-fave-games/${p.id}`}>
+            <PlatformCard platform={p} />
           </Link>
         ))
       ) : (
