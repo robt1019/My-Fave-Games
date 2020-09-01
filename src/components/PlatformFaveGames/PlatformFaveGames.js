@@ -23,8 +23,13 @@ const PlatformFaveGames = () => {
       <h1>{platform.name} fave games</h1>
       {faveGames.map((g) => (
         <React.Fragment key={g.gameId}>
-          <p>count: {g.count}</p>
           <FaveGame faveGame={{ platformId, gameId: g.gameId }} />
+          <h3>Why people love it:</h3>
+          <ul>
+            {g.reasons.map((r) => (
+              <li key={r}>{r}</li>
+            ))}
+          </ul>
         </React.Fragment>
       ))}
     </React.Fragment>

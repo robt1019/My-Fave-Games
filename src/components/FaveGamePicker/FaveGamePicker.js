@@ -7,6 +7,7 @@ const FaveGamePicker = (props) => {
   const [gameSearchTerm, setGameSearchTerm] = useState("");
   const [gameResults, setGameResults] = useState([]);
   const [gamePlatforms, setGamePlatforms] = useState([]);
+  const [reasons, setReasons] = useState("");
 
   const searchForGame = (event) => {
     event.preventDefault();
@@ -40,9 +41,14 @@ const FaveGamePicker = (props) => {
     setPlatformId(platformId);
   };
 
+  const handleReasonsChange = (event) => {
+    const reasons = event.target.value;
+    setReasons(reasons);
+  };
+
   const addFaveGame = (event) => {
     event.preventDefault();
-    props.gamePicked({ platformId, gameId });
+    props.gamePicked({ platformId, gameId, reasons });
   };
 
   return (
@@ -72,6 +78,11 @@ const FaveGamePicker = (props) => {
             </option>
           ))}
         </select>
+        <input
+          placeholder="what is good about it?"
+          type="text"
+          onChange={(event) => handleReasonsChange(event)}
+        />
         <input type="submit" value="add"></input>
       </form>
     </React.Fragment>

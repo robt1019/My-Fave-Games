@@ -5,7 +5,7 @@ const FaveGame = (props) => {
   const [platform, setPlatform] = useState({});
   const [game, setGame] = useState({});
 
-  const { platformId, gameId } = props.faveGame;
+  const { platformId, gameId, reasons } = props.faveGame;
 
   useEffect(() => {
     faveGamesService.platformsByIds(platformId, (platforms) => {
@@ -21,6 +21,7 @@ const FaveGame = (props) => {
     <div>
       <h3>{game.name}</h3>
       <h3>{platform.name}</h3>
+      <p>{reasons}</p>
     </div>
   );
 };
