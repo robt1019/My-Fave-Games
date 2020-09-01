@@ -4,6 +4,12 @@ const searchGames = (searchTerm, callback) => {
     .then((data) => callback(data));
 };
 
+const searchUsers = (searchTerm, callback) => {
+  fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/users?search=${searchTerm}`)
+    .then((response) => response.json())
+    .then((data) => callback(data));
+};
+
 const gameById = (id, callback) => {
   fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/games/${id}`)
     .then((response) => response.json())
@@ -55,6 +61,7 @@ const userFaveGames = (userId, callback) => {
 
 export default {
   searchGames,
+  searchUsers,
   gameById,
   platformsByIds,
   faveGamesByPlatform,
