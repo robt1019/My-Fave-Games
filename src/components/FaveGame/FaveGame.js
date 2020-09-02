@@ -8,6 +8,8 @@ const FaveGame = (props) => {
 
   const { platformId, gameId, reasons } = props.faveGame;
 
+  const { isEditable } = props;
+
   useEffect(() => {
     faveGamesService.platformsByIds(platformId, (platforms) => {
       setPlatform(platforms[0]);
@@ -20,8 +22,14 @@ const FaveGame = (props) => {
 
   return (
     <div className="fave-game">
+      <img
+        src={`https:${platform.logo && platform.logo.url}`}
+        alt={`${platform.name} logo`}
+      ></img>
+      {isEditable ? (
+        <button onClick={() => props.onDelete()}>delete</button>
+      ) : null}
       <h3>{game.name}</h3>
-      <h3>{platform.name}</h3>
       <p>{reasons}</p>
     </div>
   );

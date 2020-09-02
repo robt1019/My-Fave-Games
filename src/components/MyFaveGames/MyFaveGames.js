@@ -56,8 +56,11 @@ const FaveGames = () => {
           </button>
           {faveGames.map((g) => (
             <React.Fragment key={g.id}>
-              <FaveGame faveGame={g} />
-              <button onClick={() => deleteGame(g.id)}>Delete</button>
+              <FaveGame
+                faveGame={g}
+                isEditable={true}
+                onDelete={() => deleteGame(g.id)}
+              />
             </React.Fragment>
           ))}
         </div>
