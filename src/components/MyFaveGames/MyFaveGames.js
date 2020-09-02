@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./MyFaveGames.css";
 import FaveGame from "../FaveGame/FaveGame";
 import FaveGameForm from "../FaveGameForm/FaveGameForm";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -43,7 +44,7 @@ const FaveGames = () => {
   };
 
   return (
-    <React.Fragment>
+    <div className="my-fave-games">
       {!showGameModal ? (
         <div>
           <h1>My fave games</h1>
@@ -55,13 +56,13 @@ const FaveGames = () => {
             +
           </button>
           {faveGames.map((g) => (
-            <React.Fragment key={g.id}>
+            <div className="my-fave-games__fave-game" key={g.id}>
               <FaveGame
                 faveGame={g}
                 isEditable={true}
                 onDelete={() => deleteGame(g.id)}
               />
-            </React.Fragment>
+            </div>
           ))}
         </div>
       ) : (
@@ -70,7 +71,7 @@ const FaveGames = () => {
           formClosed={() => setShowGameModal(false)}
         />
       )}
-    </React.Fragment>
+    </div>
   );
 };
 

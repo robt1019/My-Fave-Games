@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PlatformCard from "../PlatformCard/PlatformCard";
 import faveGamesService from "../../services/fave-games.service";
 import { Link } from "react-router-dom";
+import "./PlatformBrowser.css";
 
 function Home() {
   const [platforms, setPlatforms] = useState([]);
@@ -18,7 +19,9 @@ function Home() {
       {platforms && platforms.length ? (
         platforms.map((p) => (
           <Link key={p.id} to={`platform-fave-games/${p.id}`}>
-            <PlatformCard platform={p} />
+            <div className="platform-browser__platform-card">
+              <PlatformCard platform={p} />
+            </div>
           </Link>
         ))
       ) : (

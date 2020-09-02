@@ -23,14 +23,15 @@ const FaveGame = (props) => {
   return (
     <div className="fave-game">
       <img
+        className="fave-game__logo"
         src={`https:${platform.logo && platform.logo.url}`}
         alt={`${platform.name} logo`}
       ></img>
+      <h3>{game.name}</h3>
+      <p>{reasons}</p>
       {isEditable ? (
         <button onClick={() => props.onDelete()}>delete</button>
       ) : null}
-      <h3>{game.name}</h3>
-      <p>{reasons}</p>
     </div>
   );
 };
