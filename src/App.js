@@ -16,10 +16,12 @@ function App() {
       audience={process.env.REACT_APP_FAVE_GAMES_API}
       redirectUri={window.location.origin}
     >
-      <BrowserRouter>
-        <Header />
-        <Routes />
-      </BrowserRouter>
+      <div className="app__container">
+        <BrowserRouter>
+          <Header />
+          <Routes />
+        </BrowserRouter>
+      </div>
     </Auth0Provider>
   );
 }

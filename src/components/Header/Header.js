@@ -2,14 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import LoginButton from "../LoginButton/LoginButton";
 import LogoutButton from "../LogoutButton/LogoutButton";
+import "./Header.css";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
   const { isAuthenticated } = useAuth0();
 
   return (
-    <div>
-      {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+    <div className="header">
       <nav>
         <ul>
           <li>
@@ -23,6 +23,7 @@ const Header = () => {
           <li>
             <Link to="/user-search">Find a user</Link>
           </li>
+          <li>{isAuthenticated ? <LogoutButton /> : <LoginButton />}</li>
         </ul>
       </nav>
     </div>

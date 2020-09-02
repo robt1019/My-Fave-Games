@@ -1,4 +1,5 @@
 import React from "react";
+import "./Routes.css";
 import PlatformBrowser from "../PlatformBrowser/PlatformBrowser";
 import UserSearch from "../UserSearch/UserSearch";
 import UserFaveGames from "../UserFaveGames/UserFaveGames";
@@ -11,7 +12,7 @@ const Routes = () => {
   const { isAuthenticated } = useAuth0();
 
   return (
-    <React.Fragment>
+    <div className="routes">
       <Switch>
         <Route path="/platform-fave-games/:platformId">
           <PlatformFaveGames />
@@ -31,7 +32,7 @@ const Routes = () => {
           <PlatformBrowser />
         </Route>
       </Switch>
-    </React.Fragment>
+    </div>
   );
 };
 

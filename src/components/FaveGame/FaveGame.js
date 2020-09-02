@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import faveGamesService from "../../services/fave-games.service";
+import "./FaveGame.css";
 
 const FaveGame = (props) => {
   const [platform, setPlatform] = useState({});
@@ -18,7 +19,7 @@ const FaveGame = (props) => {
   }, [platformId, gameId]);
 
   return (
-    <div>
+    <div className="fave-game">
       <h3>{game.name}</h3>
       <h3>{platform.name}</h3>
       <p>{reasons}</p>
