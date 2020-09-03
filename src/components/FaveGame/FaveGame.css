@@ -14,7 +14,7 @@
   white-space: pre-line;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 975px) {
   .fave-game__screenshot {
     width: 100%;
   }

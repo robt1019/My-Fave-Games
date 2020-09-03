@@ -1,0 +1,23 @@
+.platform-fave-game__reason {
+  list-style: none;
+  font-style: italic;
+  white-space: pre-line;
+}
+
+.platform-fave-game {
+  position: relative;
+}
+
+.platform-fave-game__name {
+  font-style: italic;
+}
+
+.platform-fave-game__info {
+  max-width: 940px;
+}
+
+@media (max-width: 975px) {
+  .platform-fave-game__screenshot {
+    width: 100%;
+  }
+}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import faveGamesService from "../../services/fave-games.service";
-import FaveGame from "../FaveGame/FaveGame";
+import PlatformFaveGame from "../PlatformFaveGame/PlatformFaveGame";
 
 const PlatformFaveGames = () => {
   const [faveGames, setFaveGames] = useState([]);
@@ -23,13 +23,7 @@ const PlatformFaveGames = () => {
       <h1>{platform.name} fave games</h1>
       {faveGames.map((g) => (
         <React.Fragment key={g.gameId}>
-          <FaveGame faveGame={{ platformId, gameId: g.gameId }} />
-          <h3>Why people love it:</h3>
-          <ul>
-            {g.reasons.map((r) => (
-              <li key={r}>{r}</li>
-            ))}
-          </ul>
+          <PlatformFaveGame game={g} />
         </React.Fragment>
       ))}
     </React.Fragment>
