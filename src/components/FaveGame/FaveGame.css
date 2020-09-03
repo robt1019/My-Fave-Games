@@ -2,13 +2,20 @@
   position: relative;
 }
 
-.fave-game__logo {
-  position: absolute;
-  top: 16px;
-  right: 16px;
+.fave-game__name {
+  font-style: italic;
 }
 
-.fave-game__name {
-  width: calc(100% - 106px);
-  font-style: italic;
+.fave-game__info {
+  max-width: 940px;
+}
+
+.fave-game__reasons {
+  white-space: pre-line;
+}
+
+@media (max-width: 600px) {
+  .fave-game__screenshot {
+    width: 100%;
+  }
 }

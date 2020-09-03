@@ -1,9 +1,10 @@
 import faveGamesService from "../../services/fave-games.service";
 import React, { useState } from "react";
+import "./FaveGamePicker.css";
 
 const FaveGamePicker = (props) => {
-  const [platformId, setPlatformId] = useState({});
-  const [gameId, setGameId] = useState({});
+  const [platformId, setPlatformId] = useState(undefined);
+  const [gameId, setGameId] = useState(undefined);
   const [gameSearchTerm, setGameSearchTerm] = useState("");
   const [gameResults, setGameResults] = useState([]);
   const [gamePlatforms, setGamePlatforms] = useState([]);
@@ -63,28 +64,30 @@ const FaveGamePicker = (props) => {
         ></input>
         <input type="submit" value="search"></input>
       </form>
-      <form onSubmit={(event) => addFaveGame(event)}>
-        <select onChange={(event) => handleGameChange(event)}>
-          {gameResults.map((g) => (
-            <option key={g.id} value={g.id}>
-              {g.name}
-            </option>
-          ))}
-        </select>
-        <select onChange={(event) => handlePlatformChange(event)}>
-          {gamePlatforms.map((p) => (
-            <option key={p.id} value={p.id}>
-              {p.name}
-            </option>
-          ))}
-        </select>
-        <input
-          placeholder="what is good about it?"
-          type="text"
-          onChange={(event) => handleReasonsChange(event)}
-        />
-        <input type="submit" value="add"></input>
-      </form>
+      {gameId ? (
+        <form onSubmit={(event) => addFaveGame(event)} name="gameForm">
+          <select onChange={(event) => handleGameChange(event)}>
+            {gameResults.map((g) => (
+              <option key={g.id} value={g.id}>
+                {g.name}
+              </option>
+            ))}
+          </select>
+          <select onChange={(event) => handlePlatformChange(event)}>
+            {gamePlatforms.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.name}
+              </option>
+            ))}
+          </select>
+          <textarea
+            className="fave-game-picker__reasons"
+            placeholder="what is good about it?"
+            onChange={(event) => handleReasonsChange(event)}
+          />
+          <input type="submit" value="add"></input>
+        </form>
+      ) : null}
     </React.Fragment>
   );
 };

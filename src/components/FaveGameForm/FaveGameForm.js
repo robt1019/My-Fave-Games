@@ -14,7 +14,7 @@ const FaveGame = (props) => {
           props.formClosed();
         }}
       >
-        x
+        back
       </button>
       <FaveGamePicker
         gamePicked={(game) => {

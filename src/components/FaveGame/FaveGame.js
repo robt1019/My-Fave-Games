@@ -5,6 +5,7 @@ import "./FaveGame.css";
 const FaveGame = (props) => {
   const [platform, setPlatform] = useState({});
   const [game, setGame] = useState({});
+  const [screenshot, setScreenshot] = useState("");
 
   const { platformId, gameId, reasons } = props.faveGame;
 
@@ -26,6 +27,7 @@ const FaveGame = (props) => {
 
     faveGamesService.gameById(gameId, (fetchedGame) => {
       setGame(fetchedGame);
+      setScreenshot(randomScreenshot(fetchedGame.screenshots));
     });
   }, [platformId, gameId]);
 
@@ -39,12 +41,15 @@ const FaveGame = (props) => {
       ) : null}
       <div>
         <img
-          src={randomScreenshot(game.screenshots)}
+          src={screenshot}
           alt={`${game.name} screenshot`}
+          className="fave-game__screenshot"
         ></img>
       </div>
-      <h3>Why is it good?</h3>
-      <p>{reasons}</p>
+      <div className="fave-game__info">
+        <h3>Why is it good?</h3>
+        <p className="fave-game__reasons">{reasons}</p>
+      </div>
     </div>
   );
 };

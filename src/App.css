@@ -2,6 +2,10 @@
   margin: 16px;
 }
 
+button {
+  cursor: pointer;
+}
+
 ul {
   padding: 0;
   margin: 0;
