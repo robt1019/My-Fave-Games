@@ -26,7 +26,8 @@ const FaveGame = (props) => {
     setReasonsUpdate(event.target.value);
   };
 
-  const edit = () => {
+  const edit = (event) => {
+    event.preventDefault();
     props.onEdit(reasonsUpdate);
     setEditingReasons(false);
   };
@@ -70,7 +71,7 @@ const FaveGame = (props) => {
       <div className="fave-game__info">
         <h3>Why is it good?</h3>
         {editingReasons ? (
-          <form onSubmit={() => edit()}>
+          <form onSubmit={(event) => edit(event)}>
             <textarea
               value={reasonsUpdate}
               onChange={(event) => handleReasonsChange(event)}
