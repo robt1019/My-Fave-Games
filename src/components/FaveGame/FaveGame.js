@@ -6,6 +6,8 @@ const FaveGame = (props) => {
   const [platform, setPlatform] = useState({});
   const [game, setGame] = useState({});
   const [screenshot, setScreenshot] = useState("");
+  const [editingReasons, setEditingReasons] = useState(false);
+  const [reasonsUpdate, setReasonsUpdate] = useState("");
 
   const { platformId, gameId, reasons } = props.faveGame;
 
@@ -18,6 +20,15 @@ const FaveGame = (props) => {
     const screenshot =
       screenshots[Math.floor(Math.random() * screenshots.length)];
     return screenshot && screenshot.url;
+  };
+
+  const handleReasonsChange = (event) => {
+    setReasonsUpdate(event.target.value);
+  };
+
+  const edit = () => {
+    props.onEdit(reasonsUpdate);
+    setEditingReasons(false);
   };
 
   useEffect(() => {
@@ -37,7 +48,17 @@ const FaveGame = (props) => {
         {game.name} ({platform.name})
       </h2>
       {isEditable ? (
-        <button onClick={() => props.onDelete()}>delete</button>
+        <React.Fragment>
+          <button onClick={() => props.onDelete()}>delete</button>
+          <button
+            onClick={() => {
+              setEditingReasons(true);
+              setReasonsUpdate(reasons);
+            }}
+          >
+            edit
+          </button>
+        </React.Fragment>
       ) : null}
       <div>
         <img
@@ -48,7 +69,18 @@ const FaveGame = (props) => {
       </div>
       <div className="fave-game__info">
         <h3>Why is it good?</h3>
-        <p className="fave-game__reasons">{reasons}</p>
+        {editingReasons ? (
+          <form onSubmit={() => edit()}>
+            <textarea
+              value={reasonsUpdate}
+              onChange={(event) => handleReasonsChange(event)}
+              className="fave-game__edit-reasons"
+            ></textarea>
+            <input type="submit" value="save"></input>
+          </form>
+        ) : (
+          <p className="fave-game__reasons">{reasons}</p>
+        )}
       </div>
     </div>
   );

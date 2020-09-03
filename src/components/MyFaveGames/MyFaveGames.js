@@ -43,6 +43,14 @@ const FaveGames = () => {
     });
   };
 
+  const editGame = (gameId, reasons) => {
+    faveGamesService.editFaveGame(token, { gameId, reasons }, () => {
+      setFaveGames(
+        faveGames.map((g) => (g.id === gameId ? { ...g, reasons } : g))
+      );
+    });
+  };
+
   return (
     <div className="my-fave-games">
       {!showGameModal ? (
@@ -61,6 +69,7 @@ const FaveGames = () => {
                 faveGame={g}
                 isEditable={true}
                 onDelete={() => deleteGame(g.id)}
+                onEdit={(reasons) => editGame(g.id, reasons)}
               />
             </div>
           ))}
