@@ -53,7 +53,7 @@ const FaveGames = () => {
               addNewGame();
             }}
           >
-            +
+            Add new fave game
           </button>
           {faveGames.map((g) => (
             <div className="my-fave-games__fave-game" key={g.id}>

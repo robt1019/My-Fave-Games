@@ -1,6 +1,4 @@
 .fave-game {
-  border: 1px solid black;
-  padding: 16px;
   position: relative;
 }
 
@@ -8,4 +6,9 @@
   position: absolute;
   top: 16px;
   right: 16px;
+}
+
+.fave-game__name {
+  width: calc(100% - 106px);
+  font-style: italic;
 }

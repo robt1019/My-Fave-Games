@@ -10,6 +10,15 @@ const FaveGame = (props) => {
 
   const { isEditable } = props;
 
+  const randomScreenshot = (screenshots) => {
+    if (!(screenshots && screenshots.length)) {
+      return;
+    }
+    const screenshot =
+      screenshots[Math.floor(Math.random() * screenshots.length)];
+    return screenshot && screenshot.url;
+  };
+
   useEffect(() => {
     faveGamesService.platformsByIds(platformId, (platforms) => {
       setPlatform(platforms[0]);
@@ -22,16 +31,20 @@ const FaveGame = (props) => {
 
   return (
     <div className="fave-game">
-      <img
-        className="fave-game__logo"
-        src={`https:${platform.logo && platform.logo.url}`}
-        alt={`${platform.name} logo`}
-      ></img>
-      <h3>{game.name}</h3>
-      <p>{reasons}</p>
+      <h2 className="fave-game__name">
+        {game.name} ({platform.name})
+      </h2>
       {isEditable ? (
         <button onClick={() => props.onDelete()}>delete</button>
       ) : null}
+      <div>
+        <img
+          src={randomScreenshot(game.screenshots)}
+          alt={`${game.name} screenshot`}
+        ></img>
+      </div>
+      <h3>Why is it good?</h3>
+      <p>{reasons}</p>
     </div>
   );
 };
