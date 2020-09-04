@@ -4,6 +4,7 @@ import FaveGame from "../FaveGame/FaveGame";
 import FaveGameForm from "../FaveGameForm/FaveGameForm";
 import { useAuth0 } from "@auth0/auth0-react";
 import faveGamesService from "../../services/fave-games.service";
+import "../../shared-styles/Buttons.css";
 
 const FaveGames = () => {
   const { getAccessTokenSilently, getIdTokenClaims } = useAuth0();
@@ -60,6 +61,7 @@ const FaveGames = () => {
             onClick={() => {
               addNewGame();
             }}
+            className="mfg-button"
           >
             Add new fave game
           </button>

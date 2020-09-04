@@ -1,6 +1,8 @@
 import faveGamesService from "../../services/fave-games.service";
 import React, { useState } from "react";
 import "./FaveGamePicker.css";
+import "../../shared-styles/Buttons.css";
+import "../../shared-styles/Inputs.css";
 
 const FaveGamePicker = (props) => {
   const [platformId, setPlatformId] = useState(undefined);
@@ -53,27 +55,34 @@ const FaveGamePicker = (props) => {
   };
 
   return (
-    <React.Fragment>
+    <div className="fave-game-picker">
       <form onSubmit={(event) => searchForGame(event)}>
         <input
+          className="mfg-input fave-game-picker__game-name"
           name="gameName"
           type="text"
           placeholder="game name"
           value={gameSearchTerm}
           onChange={(event) => handleGameSearchTermChange(event)}
         ></input>
-        <input type="submit" value="search"></input>
+        <input className="mfg-button" type="submit" value="search"></input>
       </form>
       {gameId ? (
         <form onSubmit={(event) => addFaveGame(event)} name="gameForm">
-          <select onChange={(event) => handleGameChange(event)}>
+          <select
+            className="mfg-input"
+            onChange={(event) => handleGameChange(event)}
+          >
             {gameResults.map((g) => (
               <option key={g.id} value={g.id}>
                 {g.name}
               </option>
             ))}
           </select>
-          <select onChange={(event) => handlePlatformChange(event)}>
+          <select
+            className="mfg-input"
+            onChange={(event) => handlePlatformChange(event)}
+          >
             {gamePlatforms.map((p) => (
               <option key={p.id} value={p.id}>
                 {p.name}
@@ -81,14 +90,14 @@ const FaveGamePicker = (props) => {
             ))}
           </select>
           <textarea
-            className="fave-game-picker__reasons"
+            className="mfg-input fave-game-picker__reasons"
             placeholder="what is good about it?"
             onChange={(event) => handleReasonsChange(event)}
           />
-          <input type="submit" value="add"></input>
+          <input className="mfg-button" type="submit" value="add"></input>
         </form>
       ) : null}
-    </React.Fragment>
+    </div>
   );
 };
 

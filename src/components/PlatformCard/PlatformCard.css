@@ -1,4 +1,11 @@
 .platform-card {
   border: 1px solid black;
+  border-radius: 5px;
   padding: 16px;
+}
+
+.platform-card:active,
+.platform-card:hover {
+  background-color: black;
+  color: white;
 }

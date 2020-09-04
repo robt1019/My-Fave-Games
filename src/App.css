@@ -2,14 +2,23 @@
   margin: 16px;
 }
 
-html,
 body {
-  max-width: 100%;
-  overflow-x: hidden;
+  font-family: "Montserrat", sans-serif;
 }
 
-button {
-  cursor: pointer;
+p {
+  font-family: "PT Serif", serif;
+  line-height: 28px;
+}
+
+h2 {
+  font-weight: bold;
+  font-style: italic;
+}
+
+h3 {
+  font-family: "PT Serif", serif;
+  font-weight: bold;
 }
 
 ul {

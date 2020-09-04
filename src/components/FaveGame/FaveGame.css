@@ -19,6 +19,14 @@
   height: 20vh;
 }
 
+.fave-game__screenshot {
+  margin-top: 4px;
+}
+
+.fave-game button {
+  margin-right: 8px;
+}
+
 @media (max-width: 975px) {
   .fave-game__screenshot {
     width: 100%;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import faveGamesService from "../../services/fave-games.service";
 import "./FaveGame.css";
+import "../../shared-styles/Buttons.css";
 
 const FaveGame = (props) => {
   const [platform, setPlatform] = useState({});
@@ -50,8 +51,11 @@ const FaveGame = (props) => {
       </h2>
       {isEditable ? (
         <React.Fragment>
-          <button onClick={() => props.onDelete()}>delete</button>
+          <button className="mfg-button" onClick={() => props.onDelete()}>
+            delete
+          </button>
           <button
+            className="mfg-button"
             onClick={() => {
               setEditingReasons(true);
               setReasonsUpdate(reasons);
@@ -77,7 +81,7 @@ const FaveGame = (props) => {
               onChange={(event) => handleReasonsChange(event)}
               className="fave-game__edit-reasons"
             ></textarea>
-            <input type="submit" value="save"></input>
+            <input className="mfg-button" type="submit" value="save"></input>
           </form>
         ) : (
           <p className="fave-game__reasons">{reasons}</p>

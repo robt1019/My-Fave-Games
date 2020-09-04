@@ -1,5 +1,6 @@
 import React from "react";
 import FaveGamePicker from "../FaveGamePicker/FaveGamePicker";
+import "../../shared-styles/Buttons.css";
 
 const FaveGame = (props) => {
   const onGamePicked = (game) => {
@@ -10,6 +11,7 @@ const FaveGame = (props) => {
   return (
     <div>
       <button
+        className="mfg-button"
         onClick={() => {
           props.formClosed();
         }}

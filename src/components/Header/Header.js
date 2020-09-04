@@ -17,11 +17,11 @@ const Header = () => {
           </li>
           {isAuthenticated ? (
             <li>
-              <Link to="/my-fave-games">My fave games</Link>
+              <Link to="/my-fave-games">My faves</Link>
             </li>
           ) : null}
           <li>
-            <Link to="/user-search">Find a user</Link>
+            <Link to="/user-search">Users</Link>
           </li>
           <li>{isAuthenticated ? <LogoutButton /> : <LoginButton />}</li>
         </ul>
