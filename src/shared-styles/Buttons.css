@@ -1,14 +1,29 @@
 .mfg-button {
   background-color: white;
-  border: 1px solid black;
+  border: 2px solid black;
   border-radius: 5px;
   padding: 8px;
   font-family: inherit;
+  font-weight: bold;
   cursor: pointer;
+  color: black;
 }
 
 .mfg-button:hover,
 .mfg-button:active {
   background-color: black;
+  border: 2px solid black;
   color: white;
+}
+
+.mfg-button.dark {
+  background-color: black;
+  color: white;
+}
+
+.mfg-button.dark:hover,
+.mfg-button.dark:active {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
 }

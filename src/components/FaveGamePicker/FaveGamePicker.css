@@ -19,6 +19,11 @@
     width: 100%;
   }
   .fave-game-picker__game-name {
-    width: calc(100% - 100px);
+    width: calc(100% - 18px);
+    margin-right: 0;
+  }
+  .fave-game-picker button {
+    width: 100%;
+    margin-bottom: 8px;
   }
 }

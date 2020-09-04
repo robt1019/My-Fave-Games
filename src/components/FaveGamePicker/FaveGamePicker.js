@@ -66,7 +66,7 @@ const FaveGamePicker = (props) => {
           onChange={(event) => handleGameSearchTermChange(event)}
         ></input>
         <button
-          className="mfg-button"
+          className="mfg-button dark"
           value="search"
           onClick={(event) => searchForGame(event)}
         >
@@ -101,7 +101,7 @@ const FaveGamePicker = (props) => {
             onChange={(event) => handleReasonsChange(event)}
           />
           <button
-            className="mfg-button"
+            className="mfg-button dark"
             onClick={(event) => addFaveGame(event)}
           >
             add
