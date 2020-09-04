@@ -56,7 +56,7 @@ const FaveGamePicker = (props) => {
 
   return (
     <div className="fave-game-picker">
-      <form onSubmit={(event) => searchForGame(event)}>
+      <form>
         <input
           className="mfg-input fave-game-picker__game-name"
           name="gameName"
@@ -65,12 +65,18 @@ const FaveGamePicker = (props) => {
           value={gameSearchTerm}
           onChange={(event) => handleGameSearchTermChange(event)}
         ></input>
-        <input className="mfg-button" type="submit" value="search"></input>
+        <button
+          className="mfg-button"
+          value="search"
+          onClick={(event) => searchForGame(event)}
+        >
+          search
+        </button>
       </form>
       {gameId ? (
-        <form onSubmit={(event) => addFaveGame(event)} name="gameForm">
+        <form>
           <select
-            className="mfg-input"
+            className="mfg-select"
             onChange={(event) => handleGameChange(event)}
           >
             {gameResults.map((g) => (
@@ -80,7 +86,7 @@ const FaveGamePicker = (props) => {
             ))}
           </select>
           <select
-            className="mfg-input"
+            className="mfg-select"
             onChange={(event) => handlePlatformChange(event)}
           >
             {gamePlatforms.map((p) => (
@@ -94,7 +100,12 @@ const FaveGamePicker = (props) => {
             placeholder="what is good about it?"
             onChange={(event) => handleReasonsChange(event)}
           />
-          <input className="mfg-button" type="submit" value="add"></input>
+          <button
+            className="mfg-button"
+            onClick={(event) => addFaveGame(event)}
+          >
+            add
+          </button>
         </form>
       ) : null}
     </div>

@@ -1,5 +1,5 @@
 .fave-game-picker__reasons {
-  width: 100%;
+  width: calc(100% - 16px);
   height: 60vh;
 }
 
@@ -12,4 +12,13 @@
 .fave-game-picker input {
   margin-right: 8px;
   margin-bottom: 8px;
+}
+
+@media (max-width: 600px) {
+  .fave-game-picker select {
+    width: 100%;
+  }
+  .fave-game-picker__game-name {
+    width: calc(100% - 100px);
+  }
 }
