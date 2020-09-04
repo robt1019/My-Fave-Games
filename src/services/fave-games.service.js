@@ -10,6 +10,23 @@ const searchUsers = (searchTerm, callback) => {
     .then((data) => callback(data));
 };
 
+const userById = (userId, callback) => {
+  fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/users/${userId}`)
+    .then((response) => response.json())
+    .then((data) => callback(data));
+};
+
+const me = (token, callback) => {
+  fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/users/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => callback(data));
+};
+
 const gameById = (id, callback) => {
   fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/games/${id}`)
     .then((response) => response.json())
@@ -87,6 +104,8 @@ const myFaveGames = (token, callback) => {
 export default {
   searchGames,
   searchUsers,
+  me,
+  userById,
   gameById,
   platformsByIds,
   faveGamesByPlatform,

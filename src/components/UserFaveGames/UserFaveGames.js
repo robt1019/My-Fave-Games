@@ -7,9 +7,13 @@ const UserFaveGames = () => {
   const { userId } = useParams();
 
   const [faveGames, setFaveGames] = useState([]);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     if (userId) {
+      faveGamesService.userById(userId, (userInfo) => {
+        setUser(userInfo);
+      });
       faveGamesService.userFaveGames(userId, (games) => {
         setFaveGames(games);
       });
@@ -18,7 +22,7 @@ const UserFaveGames = () => {
 
   return (
     <div>
-      <h1>User fave games</h1>
+      <h1>{user.name} Fave Games</h1>
       {faveGames.map((g) => (
         <FaveGame key={g.id} faveGame={g} />
       ))}

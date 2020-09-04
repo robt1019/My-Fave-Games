@@ -5,6 +5,7 @@ import FaveGameForm from "../FaveGameForm/FaveGameForm";
 import { useAuth0 } from "@auth0/auth0-react";
 import faveGamesService from "../../services/fave-games.service";
 import "../../shared-styles/Buttons.css";
+import { Link } from "react-router-dom";
 
 const FaveGames = () => {
   const { getAccessTokenSilently, getIdTokenClaims } = useAuth0();
@@ -12,12 +13,16 @@ const FaveGames = () => {
   const [token, setToken] = useState();
   const [faveGames, setFaveGames] = useState([]);
   const [showGameModal, setShowGameModal] = useState(false);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     async function getUserStuff() {
       try {
         const accessToken = await getAccessTokenSilently();
         setToken(accessToken);
+        faveGamesService.me(accessToken, (userInfo) => {
+          setUser(userInfo);
+        });
         faveGamesService.myFaveGames(accessToken, (games) => {
           setFaveGames(games);
         });
@@ -56,7 +61,7 @@ const FaveGames = () => {
     <div className="my-fave-games">
       {!showGameModal ? (
         <div>
-          <h1>My fave games</h1>
+          <h1>{user.name} Fave Games</h1>
           <button
             onClick={() => {
               addNewGame();
@@ -65,6 +70,9 @@ const FaveGames = () => {
           >
             Add new fave game
           </button>
+          <div className="my-fave-games__public-list-link">
+            <Link to={`/fave-games/${user.userId}`}>See public list</Link>
+          </div>
           {faveGames.map((g) => (
             <div className="my-fave-games__fave-game" key={g.id}>
               <FaveGame
