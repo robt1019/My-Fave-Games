@@ -34,10 +34,7 @@ const UserFaveGames = () => {
       <ul>
         {results.map((user) => (
           <li key={user.userId}>
-            <Link to={`fave-games/${user.userId}`}>
-              {user.name ? `${user.name}: ` : ""}
-              {user.userId}
-            </Link>
+            <Link to={`fave-games/${user.userId}`}>{user.username}</Link>
           </li>
         ))}
       </ul>

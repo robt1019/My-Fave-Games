@@ -39,7 +39,9 @@ const FaveGames = () => {
 
   const gameAdded = (game) => {
     faveGamesService.createFaveGame(token, game, (createdGame) => {
-      setFaveGames([...faveGames, createdGame]);
+      faveGamesService.gameById(createdGame.gameId, () => {
+        setFaveGames([...faveGames, createdGame]);
+      });
     });
   };
 
@@ -61,7 +63,7 @@ const FaveGames = () => {
     <div className="my-fave-games">
       {!showGameModal ? (
         <div>
-          <h1>{user.name} Fave Games</h1>
+          <h1>{user.username} Fave Games</h1>
           <button
             onClick={() => {
               addNewGame();

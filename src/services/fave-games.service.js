@@ -2,33 +2,49 @@ const gamesById = {};
 
 const platformsById = {};
 
+let cachedUser = undefined;
+
 const searchGames = (searchTerm, callback) => {
   fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/games?search=${searchTerm}`)
-    .then((response) => response.json())
+    .then((response) => response && response.json())
     .then((data) => callback(data));
 };
 
 const searchUsers = (searchTerm, callback) => {
   fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/users?search=${searchTerm}`)
-    .then((response) => response.json())
+    .then((response) => response && response.json())
     .then((data) => callback(data));
 };
 
 const userById = (userId, callback) => {
   fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/users/${userId}`)
-    .then((response) => response.json())
+    .then((response) => response && response.json())
     .then((data) => callback(data));
 };
 
 const me = (token, callback) => {
-  fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/users/me`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => callback(data));
+  if (cachedUser) {
+    callback(cachedUser);
+  } else {
+    fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/users/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response && response.json();
+        } else {
+          cachedUser = undefined;
+          return {};
+        }
+      })
+      .then((data) => {
+        cachedUser = data;
+        callback(data);
+      });
+  }
 };
 
 const gameById = (id, callback) => {
@@ -36,7 +52,7 @@ const gameById = (id, callback) => {
     callback(gamesById[id]);
   } else {
     fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/games/${id}`)
-      .then((response) => response.json())
+      .then((response) => response && response.json())
       .then((data) => {
         gamesById[id] = data;
         callback(data);
@@ -60,7 +76,7 @@ const platformsByIds = (ids, callback) => {
     fetch(
       `${process.env.REACT_APP_FAVE_GAMES_API}/platforms?platformIds=${ids}`
     )
-      .then((response) => response.json())
+      .then((response) => response && response.json())
       .then((data) => {
         data.forEach((platform) => (platformsById[data.id] = platform));
         callback(data);
@@ -73,7 +89,7 @@ const platformById = (id, callback) => {
     callback(platformsById[id]);
   } else {
     fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/platforms?platformIds=${id}`)
-      .then((response) => response.json())
+      .then((response) => response && response.json())
       .then((data) => {
         platformsById[id] = data[0];
         callback(data[0]);
@@ -85,7 +101,7 @@ const faveGamesByPlatform = (platformId, callback) => {
   fetch(
     `${process.env.REACT_APP_FAVE_GAMES_API}/platform-fave-games/${platformId}`
   )
-    .then((response) => response.json())
+    .then((response) => response && response.json())
     .then((data) => callback(data));
 };
 
@@ -98,7 +114,7 @@ const createFaveGame = (token, faveGame, callback) => {
       "Content-Type": "application/json",
     },
   })
-    .then((response) => response.json())
+    .then((response) => response && response.json())
     .then((createdGame) => callback(createdGame));
 };
 
@@ -128,7 +144,7 @@ const deleteFaveGame = (token, faveGameId, callback) => {
 
 const userFaveGames = (userId, callback) => {
   fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/my-fave-games/${userId}`)
-    .then((response) => response.json())
+    .then((response) => response && response.json())
     .then((data) => callback(data));
 };
 
@@ -139,11 +155,14 @@ const myFaveGames = (token, callback) => {
       "Content-Type": "application/json",
     },
   })
-    .then((response) => response.json())
+    .then((response) => response && response.json())
     .then((data) => callback(data));
 };
 
 export default {
+  clearCachedUser: () => {
+    cachedUser = undefined;
+  },
   searchGames,
   searchUsers,
   me,

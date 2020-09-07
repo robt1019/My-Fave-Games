@@ -22,7 +22,7 @@ const UserFaveGames = () => {
 
   return (
     <div>
-      <h1>{user.name} Fave Games</h1>
+      <h1>{user.username} Fave Games</h1>
       {faveGames.map((g) => (
         <FaveGame key={g.id} faveGame={g} />
       ))}
