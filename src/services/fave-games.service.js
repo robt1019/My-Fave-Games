@@ -32,7 +32,7 @@ const me = (token, callback) => {
 };
 
 const gameById = (id, callback) => {
-  if (gamesById[id]) {
+  if (gamesById[id] && gamesById[id].name) {
     callback(gamesById[id]);
   } else {
     fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/games/${id}`)
@@ -69,7 +69,7 @@ const platformsByIds = (ids, callback) => {
 };
 
 const platformById = (id, callback) => {
-  if (platformsById[id]) {
+  if (platformsById[id] && platformsById[id].name) {
     callback(platformsById[id]);
   } else {
     fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/platforms?platformIds=${id}`)

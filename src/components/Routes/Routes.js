@@ -17,6 +17,8 @@ const Routes = () => {
     getAccessTokenSilently().then((token) => {
       faveGamesService.myFaveGames(token, (faveGames) => {
         faveGames.forEach((game) => {
+          const img = new Image();
+          img.src = game.screenshot;
           faveGamesService.gameById(game.gameId, () => {});
           faveGamesService.platformById(game.platformId, () => {});
         });
