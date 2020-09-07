@@ -14,15 +14,6 @@ const FaveGame = (props) => {
 
   const { isEditable } = props;
 
-  const randomScreenshot = (screenshots) => {
-    if (!(screenshots && screenshots.length)) {
-      return;
-    }
-    const screenshot =
-      screenshots[Math.floor(Math.random() * screenshots.length)];
-    return screenshot && screenshot.url;
-  };
-
   const handleReasonsChange = (event) => {
     setReasonsUpdate(event.target.value);
   };
@@ -40,7 +31,7 @@ const FaveGame = (props) => {
 
     faveGamesService.gameById(gameId, (fetchedGame) => {
       setGame(fetchedGame);
-      setScreenshot(randomScreenshot(fetchedGame.screenshots));
+      setScreenshot(fetchedGame.screenshot);
     });
   }, [platformId, gameId]);
 

@@ -7,20 +7,10 @@ const FaveGame = (props) => {
   const [screenshot, setScreenshot] = useState("");
 
   const { gameId, reasons } = props.game;
-
-  const randomScreenshot = (screenshots) => {
-    if (!(screenshots && screenshots.length)) {
-      return;
-    }
-    const screenshot =
-      screenshots[Math.floor(Math.random() * screenshots.length)];
-    return screenshot && screenshot.url;
-  };
-
   useEffect(() => {
     faveGamesService.gameById(gameId, (fetchedGame) => {
       setGame(fetchedGame);
-      setScreenshot(randomScreenshot(fetchedGame.screenshots));
+      setScreenshot(fetchedGame.screenshot);
     });
   }, [gameId]);
 
