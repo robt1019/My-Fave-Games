@@ -6,8 +6,14 @@ import Header from "./components/Header/Header";
 import { BrowserRouter } from "react-router-dom";
 import faveGameService from "./services/fave-games.service";
 
+export const quickPlatformLinkIds = [48, 130, 6, 49];
+
 function App() {
-  faveGameService.platformsByIds("48,130,6,49", () => {});
+  quickPlatformLinkIds.forEach((platformId) => {
+    faveGameService.faveGamesByPlatform(platformId, () => {});
+  });
+
+  faveGameService.platformsByIds(quickPlatformLinkIds.join(","), () => {});
 
   return (
     <Auth0Provider

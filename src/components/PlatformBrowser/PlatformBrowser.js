@@ -3,14 +3,18 @@ import PlatformCard from "../PlatformCard/PlatformCard";
 import faveGamesService from "../../services/fave-games.service";
 import { Link } from "react-router-dom";
 import "./PlatformBrowser.css";
+import { quickPlatformLinkIds } from "../../App";
 
 function Home() {
   const [platforms, setPlatforms] = useState([]);
 
   useEffect(() => {
-    faveGamesService.platformsByIds("48,130,6,49", (results) => {
-      setPlatforms(results);
-    });
+    faveGamesService.platformsByIds(
+      quickPlatformLinkIds.join(","),
+      (results) => {
+        setPlatforms(results);
+      }
+    );
   }, []);
 
   return (

@@ -7,9 +7,22 @@ import MyFaveGames from "../MyFaveGames/MyFaveGames";
 import PlatformFaveGames from "../PlatformFaveGames/PlatformFaveGames";
 import { Switch, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import faveGamesService from "../../services/fave-games.service";
 
 const Routes = () => {
   const { isAuthenticated } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
+
+  if (isAuthenticated) {
+    getAccessTokenSilently().then((token) => {
+      faveGamesService.myFaveGames(token, (faveGames) => {
+        faveGames.forEach((game) => {
+          faveGamesService.gameById(game.gameId, () => {});
+          faveGamesService.platformById(game.platformId, () => {});
+        });
+      });
+    });
+  }
 
   return (
     <div className="routes">
