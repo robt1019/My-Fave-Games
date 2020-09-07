@@ -1,3 +1,7 @@
+const gamesById = {};
+
+const platformsById = {};
+
 const searchGames = (searchTerm, callback) => {
   fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/games?search=${searchTerm}`)
     .then((response) => response.json())
@@ -28,15 +32,53 @@ const me = (token, callback) => {
 };
 
 const gameById = (id, callback) => {
-  fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/games/${id}`)
-    .then((response) => response.json())
-    .then((data) => callback(data));
+  if (gamesById[id]) {
+    callback(gamesById[id]);
+  } else {
+    fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/games/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        gamesById[id] = data;
+        callback(data);
+      });
+  }
 };
 
 const platformsByIds = (ids, callback) => {
-  fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/platforms?platformIds=${ids}`)
-    .then((response) => response.json())
-    .then((data) => callback(data));
+  let allIdsCached = true;
+
+  for (let id of ids) {
+    if (!platformsById[id]) {
+      allIdsCached = false;
+      break;
+    }
+  }
+
+  if (allIdsCached) {
+    callback(ids.map((id) => platformsById[id]));
+  } else {
+    fetch(
+      `${process.env.REACT_APP_FAVE_GAMES_API}/platforms?platformIds=${ids}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        data.forEach((platform) => (platformsById[data.id] = platform));
+        callback(data);
+      });
+  }
+};
+
+const platformById = (id, callback) => {
+  if (platformsById[id]) {
+    callback(platformsById[id]);
+  } else {
+    fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/platforms?platformIds=${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        platformsById[id] = data[0];
+        callback(data[0]);
+      });
+  }
 };
 
 const faveGamesByPlatform = (platformId, callback) => {
@@ -108,6 +150,7 @@ export default {
   userById,
   gameById,
   platformsByIds,
+  platformById,
   faveGamesByPlatform,
   createFaveGame,
   editFaveGame,

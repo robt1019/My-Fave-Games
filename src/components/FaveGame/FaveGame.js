@@ -34,8 +34,8 @@ const FaveGame = (props) => {
   };
 
   useEffect(() => {
-    faveGamesService.platformsByIds(platformId, (platforms) => {
-      setPlatform(platforms[0]);
+    faveGamesService.platformById(platformId, (platform) => {
+      setPlatform(platform);
     });
 
     faveGamesService.gameById(gameId, (fetchedGame) => {

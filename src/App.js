@@ -4,8 +4,11 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import Routes from "./components/Routes/Routes";
 import Header from "./components/Header/Header";
 import { BrowserRouter } from "react-router-dom";
+import faveGameService from "./services/fave-games.service";
 
 function App() {
+  faveGameService.platformsByIds("48,130,6,49", () => {});
+
   return (
     <Auth0Provider
       domain="my-fave-games-dev.eu.auth0.com"

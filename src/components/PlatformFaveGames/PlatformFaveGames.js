@@ -10,8 +10,8 @@ const PlatformFaveGames = () => {
   const { platformId } = useParams();
 
   useEffect(() => {
-    faveGamesService.platformsByIds([platformId], (results) => {
-      setPlatform(results && results[0]);
+    faveGamesService.platformById(platformId, (platform) => {
+      setPlatform(platform);
     });
     faveGamesService.faveGamesByPlatform(platformId, (results) => {
       setFaveGames(results);
