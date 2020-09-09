@@ -66,13 +66,18 @@ const FaveGame = (props) => {
       <div className="fave-game__info">
         <h3>Why is it good?</h3>
         {editingReasons ? (
-          <form onSubmit={(event) => edit(event)}>
+          <form>
             <textarea
               value={reasonsUpdate}
               onChange={(event) => handleReasonsChange(event)}
               className="fave-game__edit-reasons"
             ></textarea>
-            <input className="mfg-button" type="submit" value="save"></input>
+            <button
+              className="mfg-button dark"
+              onClick={(event) => edit(event)}
+            >
+              save
+            </button>
           </form>
         ) : (
           <p className="fave-game__reasons">{reasons}</p>

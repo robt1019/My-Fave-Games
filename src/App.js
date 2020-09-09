@@ -10,6 +10,7 @@ import faveGamesService from "./services/fave-games.service";
 export const quickPlatformLinkIds = [48, 130, 6, 49];
 
 function App() {
+  // preload platforms and images
   quickPlatformLinkIds.forEach((platformId) => {
     faveGameService.faveGamesByPlatform(platformId, (faveGames) => {
       faveGames.forEach((faveGame) => {
@@ -21,7 +22,7 @@ function App() {
     });
   });
 
-  faveGameService.platformsByIds(quickPlatformLinkIds.join(","), () => {});
+  faveGameService.platformsByIds(quickPlatformLinkIds, () => {});
 
   return (
     <Auth0Provider

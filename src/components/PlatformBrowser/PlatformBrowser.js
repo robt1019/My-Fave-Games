@@ -9,12 +9,9 @@ function Home() {
   const [platforms, setPlatforms] = useState([]);
 
   useEffect(() => {
-    faveGamesService.platformsByIds(
-      quickPlatformLinkIds.join(","),
-      (results) => {
-        setPlatforms(results);
-      }
-    );
+    faveGamesService.platformsByIds(quickPlatformLinkIds, (results) => {
+      setPlatforms(results);
+    });
   }, []);
 
   return (

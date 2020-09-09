@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import faveGamesService from "../../services/fave-games.service";
 import { Link } from "react-router-dom";
+import "../../shared-styles/Inputs.css";
+import "../../shared-styles/Buttons.css";
+import "./UserSearch.css";
 
 const UserFaveGames = () => {
   const [results, setResults] = useState([]);
@@ -18,18 +21,20 @@ const UserFaveGames = () => {
   };
 
   return (
-    <React.Fragment>
+    <div className="user-search">
       <h1>User Search</h1>
-      <form
-        onSubmit={(event) => {
-          handleFormSubmit(event);
-        }}
-      >
+      <form>
         <input
           type="text"
+          className="mfg-input user-search__search-term"
           onChange={(event) => handleSearchTermChange(event)}
         />
-        <input type="submit" value="Search for user"></input>
+        <button
+          className="mfg-button dark"
+          onClick={(event) => handleFormSubmit(event)}
+        >
+          Search for user
+        </button>
       </form>
       <ul>
         {results.map((user) => (
@@ -38,7 +43,7 @@ const UserFaveGames = () => {
           </li>
         ))}
       </ul>
-    </React.Fragment>
+    </div>
   );
 };
 

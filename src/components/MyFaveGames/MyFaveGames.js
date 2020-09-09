@@ -34,7 +34,13 @@ const FaveGames = () => {
   }, [getAccessTokenSilently, getIdTokenClaims]);
 
   const addNewGame = () => {
-    setShowGameModal(true);
+    if (faveGames.length < 5) {
+      setShowGameModal(true);
+    } else {
+      window.alert(
+        "Sorry there. You can only have 5 favourite games at one time. Look, I know its tough, but you are going to have to be more ruthless. For somewhat arbitrary reasons you are only allowed 5. So go back, think hard and delete one if you really want to add this new one."
+      );
+    }
   };
 
   const gameAdded = (game) => {
@@ -46,9 +52,14 @@ const FaveGames = () => {
   };
 
   const deleteGame = (gameId) => {
-    faveGamesService.deleteFaveGame(token, gameId, () => {
-      setFaveGames(faveGames.filter((g) => g.id !== gameId));
-    });
+    const shouldDelete = window.confirm(
+      "Are you sure you want to delete this previously favourited game!?! I won't be able to get it back for you if you change your mind..."
+    );
+    if (shouldDelete) {
+      faveGamesService.deleteFaveGame(token, gameId, () => {
+        setFaveGames(faveGames.filter((g) => g.id !== gameId));
+      });
+    }
   };
 
   const editGame = (gameId, reasons) => {
