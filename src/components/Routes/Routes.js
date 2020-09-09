@@ -23,7 +23,7 @@ const Routes = () => {
               fetchedGames.forEach((fetchedGame) => {
                 faveGamesService.platformById(fetchedGame.platformId, () => {});
                 const img = new Image();
-                img.src = fetchedGame.screenshot;
+                img.src = fetchedGame.screenshots[0].url;
               });
             }
           );

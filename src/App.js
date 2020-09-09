@@ -17,7 +17,7 @@ function App() {
         (fetchedGames) => {
           fetchedGames.forEach((fetchedGame) => {
             const img = new Image();
-            img.src = fetchedGame.screenshot;
+            img.src = fetchedGame.screenshots[0].url;
           });
         }
       );

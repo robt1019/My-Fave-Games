@@ -55,6 +55,9 @@ const gameById = (id, callback) => {
       .then((response) => {
         return response && response.json();
       })
+      .catch(() => {
+        callback({});
+      })
       .then((data) => {
         gamesById[id] = data;
         callback(data);
@@ -80,7 +83,7 @@ const gamesByIds = (ids, callback) => {
         return response && response.json();
       })
       .then((data) => {
-        data.forEach((game) => (gameById[data.id] = game));
+        data.forEach((game) => (gamesById[game.id] = game));
         callback(data);
       });
   }

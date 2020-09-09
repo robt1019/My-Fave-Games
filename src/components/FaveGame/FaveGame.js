@@ -31,7 +31,7 @@ const FaveGame = (props) => {
 
     faveGamesService.gameById(gameId, (fetchedGame) => {
       setGame(fetchedGame);
-      setScreenshot(fetchedGame.screenshot);
+      setScreenshot(fetchedGame.screenshots[0].url);
     });
   }, [platformId, gameId]);
 

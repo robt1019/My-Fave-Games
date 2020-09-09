@@ -24,7 +24,12 @@ const FaveGames = () => {
           setUser(userInfo);
         });
         faveGamesService.myFaveGames(accessToken, (games) => {
-          setFaveGames(games);
+          faveGamesService.gamesByIds(
+            games.map((g) => g.gameId),
+            () => {
+              setFaveGames(games);
+            }
+          );
         });
       } catch (err) {
         console.error(err);
