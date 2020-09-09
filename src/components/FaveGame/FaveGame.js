@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import faveGamesService from "../../services/fave-games.service";
 import "./FaveGame.css";
 import "../../shared-styles/Buttons.css";
+import "../../shared-styles/Inputs.css";
 
 const FaveGame = (props) => {
   const [platform, setPlatform] = useState({});
@@ -70,7 +71,7 @@ const FaveGame = (props) => {
             <textarea
               value={reasonsUpdate}
               onChange={(event) => handleReasonsChange(event)}
-              className="fave-game__edit-reasons"
+              className="fave-game__edit-reasons mfg-input"
             ></textarea>
             <button
               className="mfg-button dark"
