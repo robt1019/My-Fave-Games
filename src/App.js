@@ -4,7 +4,6 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import Routes from "./components/Routes/Routes";
 import Header from "./components/Header/Header";
 import { BrowserRouter } from "react-router-dom";
-import faveGameService from "./services/fave-games.service";
 import faveGamesService from "./services/fave-games.service";
 
 export const quickPlatformLinkIds = [48, 130, 6, 49];
@@ -12,17 +11,20 @@ export const quickPlatformLinkIds = [48, 130, 6, 49];
 function App() {
   // preload platforms and images
   quickPlatformLinkIds.forEach((platformId) => {
-    faveGameService.faveGamesByPlatform(platformId, (faveGames) => {
-      faveGames.forEach((faveGame) => {
-        faveGamesService.gameById(faveGame.gameId, (fetchedGame) => {
-          const img = new Image();
-          img.src = fetchedGame.screenshot;
-        });
-      });
+    faveGamesService.faveGamesByPlatform(platformId, (faveGames) => {
+      faveGamesService.gamesByIds(
+        faveGames.map((g) => g.gameId),
+        (fetchedGames) => {
+          fetchedGames.forEach((fetchedGame) => {
+            const img = new Image();
+            img.src = fetchedGame.screenshot;
+          });
+        }
+      );
     });
   });
 
-  faveGameService.platformsByIds(quickPlatformLinkIds, () => {});
+  faveGamesService.platformsByIds(quickPlatformLinkIds, () => {});
 
   return (
     <Auth0Provider

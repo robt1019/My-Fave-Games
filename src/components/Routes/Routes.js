@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Routes.css";
 import PlatformBrowser from "../PlatformBrowser/PlatformBrowser";
 import UserSearch from "../UserSearch/UserSearch";
@@ -13,18 +13,24 @@ const Routes = () => {
   const { isAuthenticated } = useAuth0();
   const { getAccessTokenSilently } = useAuth0();
 
-  if (isAuthenticated) {
-    getAccessTokenSilently().then((token) => {
-      faveGamesService.myFaveGames(token, (faveGames) => {
-        faveGames.forEach((game) => {
-          const img = new Image();
-          img.src = game.screenshot;
-          faveGamesService.gameById(game.gameId, () => {});
-          faveGamesService.platformById(game.platformId, () => {});
+  useEffect(() => {
+    if (isAuthenticated) {
+      getAccessTokenSilently().then((token) => {
+        faveGamesService.myFaveGames(token, (faveGames) => {
+          faveGamesService.gamesByIds(
+            faveGames.map((g) => g.gameId),
+            (fetchedGames) => {
+              fetchedGames.forEach((fetchedGame) => {
+                faveGamesService.platformById(fetchedGame.platformId, () => {});
+                const img = new Image();
+                img.src = fetchedGame.screenshot;
+              });
+            }
+          );
         });
       });
-    });
-  }
+    }
+  }, [isAuthenticated, getAccessTokenSilently]);
 
   return (
     <div className="routes">

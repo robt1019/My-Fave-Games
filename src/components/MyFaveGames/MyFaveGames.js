@@ -46,7 +46,9 @@ const FaveGames = () => {
   const gameAdded = (game) => {
     faveGamesService.createFaveGame(token, game, (createdGame) => {
       faveGamesService.gameById(createdGame.gameId, () => {
-        setFaveGames([...faveGames, createdGame]);
+        if (createdGame) {
+          setFaveGames([...faveGames, createdGame]);
+        }
       });
     });
   };

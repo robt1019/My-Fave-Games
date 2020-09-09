@@ -52,9 +52,35 @@ const gameById = (id, callback) => {
     callback(gamesById[id]);
   } else {
     fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/games/${id}`)
-      .then((response) => response && response.json())
+      .then((response) => {
+        return response && response.json();
+      })
       .then((data) => {
         gamesById[id] = data;
+        callback(data);
+      });
+  }
+};
+
+const gamesByIds = (ids, callback) => {
+  let allIdsCached = true;
+
+  for (let id of ids) {
+    if (!gamesById[id]) {
+      allIdsCached = false;
+      break;
+    }
+  }
+
+  if (allIdsCached) {
+    callback(ids.map((id) => gamesById[id]));
+  } else {
+    fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/games?gameIds=${ids}`)
+      .then((response) => {
+        return response && response.json();
+      })
+      .then((data) => {
+        data.forEach((game) => (gameById[data.id] = game));
         callback(data);
       });
   }
@@ -168,6 +194,7 @@ export default {
   me,
   userById,
   gameById,
+  gamesByIds,
   platformsByIds,
   platformById,
   faveGamesByPlatform,
