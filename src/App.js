@@ -3,6 +3,7 @@ import "./App.css";
 import { Auth0Provider } from "@auth0/auth0-react";
 import Routes from "./components/Routes/Routes";
 import Header from "./components/Header/Header";
+import Loading from "./components/Loading/Loading";
 import { BrowserRouter } from "react-router-dom";
 import faveGamesService from "./services/fave-games.service";
 
@@ -56,7 +57,9 @@ function App() {
           <Routes />
         </BrowserRouter>
       </div>
-      <div className="app__loading">loading</div>
+      <div className="app__loading">
+        <Loading></Loading>
+      </div>
     </Auth0Provider>
   );
 }

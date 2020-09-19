@@ -1,10 +1,18 @@
 const gamesById = {};
 
-const platformsById = {};
+const platformsById = {
+  6: {
+    id: 6,
+    name: "PC",
+    platform_logo: 203,
+  },
+};
 
 let cachedUser = undefined;
 
 let loadingStateListener;
+
+const loadingEvents = [];
 
 const onLoadingStateChange = (callback) => {
   if (loadingStateListener) {
@@ -14,13 +22,16 @@ const onLoadingStateChange = (callback) => {
 };
 
 const loading = () => {
-  if (loadingStateListener) {
+  loadingEvents.push("");
+  if (loadingStateListener && loadingEvents.length === 1) {
     loadingStateListener("loading");
   }
 };
 
 const loaded = () => {
+  loadingEvents.pop();
   if (loadingStateListener) {
+    if (!loadingEvents.length);
     loadingStateListener("loaded");
   }
 };
@@ -178,7 +189,7 @@ const platformById = (id, callback) => {
 };
 
 const faveGamesByPlatform = (platformId, callback) => {
-  loaded();
+  loading();
   fetch(
     `${process.env.REACT_APP_FAVE_GAMES_API}/platform-fave-games/${platformId}`
   )
