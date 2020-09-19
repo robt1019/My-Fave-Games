@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { Auth0Provider } from "@auth0/auth0-react";
 import Routes from "./components/Routes/Routes";
@@ -9,22 +9,36 @@ import faveGamesService from "./services/fave-games.service";
 export const quickPlatformLinkIds = [48, 130, 6, 49];
 
 function App() {
-  // preload platforms and images
-  quickPlatformLinkIds.forEach((platformId) => {
-    faveGamesService.faveGamesByPlatform(platformId, (faveGames) => {
-      faveGamesService.gamesByIds(
-        faveGames.map((g) => g.gameId),
-        (fetchedGames) => {
-          fetchedGames.forEach((fetchedGame) => {
-            const img = new Image();
-            img.src = fetchedGame.screenshots[0].url;
-          });
-        }
-      );
+  useEffect(() => {
+    faveGamesService.onLoadingStateChange((loadingState) => {
+      if (loadingState === "loading") {
+        document.querySelector(".app__container").classList.add("hidden");
+        document.querySelector(".app__loading").classList.remove("hidden");
+      } else {
+        document.querySelector(".app__loading").classList.add("hidden");
+        document.querySelector(".app__container").classList.remove("hidden");
+      }
     });
-  });
+  }, []);
 
-  faveGamesService.platformsByIds(quickPlatformLinkIds, () => {});
+  useEffect(() => {
+    // preload platforms and images
+    quickPlatformLinkIds.forEach((platformId) => {
+      faveGamesService.faveGamesByPlatform(platformId, (faveGames) => {
+        faveGamesService.gamesByIds(
+          faveGames.map((g) => g.gameId),
+          (fetchedGames) => {
+            fetchedGames.forEach((fetchedGame) => {
+              const img = new Image();
+              img.src = fetchedGame.screenshots[0].url;
+            });
+          }
+        );
+      });
+    });
+
+    faveGamesService.platformsByIds(quickPlatformLinkIds, () => {});
+  }, []);
 
   return (
     <Auth0Provider
@@ -42,6 +56,7 @@ function App() {
           <Routes />
         </BrowserRouter>
       </div>
+      <div className="app__loading">loading</div>
     </Auth0Provider>
   );
 }
