@@ -46,6 +46,18 @@ const searchGames = (searchTerm, callback) => {
     });
 };
 
+const searchPlatforms = (searchTerm, callback) => {
+  loading();
+  fetch(
+    `${process.env.REACT_APP_FAVE_GAMES_API}/platforms?search=${searchTerm}`
+  )
+    .then((response) => response && response.json())
+    .then((data) => {
+      loaded();
+      callback(data);
+    });
+};
+
 const searchUsers = (searchTerm, callback) => {
   loading();
   fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/users?search=${searchTerm}`)
@@ -280,6 +292,7 @@ export default {
     cachedUser = undefined;
   },
   searchGames,
+  searchPlatforms,
   searchUsers,
   me,
   userById,

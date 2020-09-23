@@ -2,14 +2,14 @@
   padding: 8px;
   border-radius: 5px;
   font-family: inherit;
+  font-size: inherit;
   background: white;
   border: 1px solid black;
-  font-size: 16px;
 }
 
 .mfg-select {
+  font-size: inherit;
   padding: 8px;
   border-radius: 5px;
   font-family: inherit;
-  font-size: 16px;
 }

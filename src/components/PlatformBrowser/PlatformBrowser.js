@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import PlatformCard from "../PlatformCard/PlatformCard";
+import PlatformSearch from "../PlatformSearch/PlatformSearch";
 import faveGamesService from "../../services/fave-games.service";
 import { Link } from "react-router-dom";
 import "./PlatformBrowser.css";
 import { quickPlatformLinkIds } from "../../index";
 
-function Home() {
+function PlatformBrowser() {
   const [platforms, setPlatforms] = useState([]);
 
   useEffect(() => {
@@ -28,8 +29,9 @@ function Home() {
       ) : (
         <React.Fragment />
       )}
+      <PlatformSearch />
     </div>
   );
 }
 
-export default Home;
+export default PlatformBrowser;
