@@ -9,7 +9,8 @@ function PlatformSearch() {
   const [platforms, setPlatforms] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const searchForPlatform = () => {
+  const searchForPlatform = (event) => {
+    event.preventDefault();
     faveGamesService.searchPlatforms(searchTerm, (platforms) => {
       setPlatforms(platforms);
     });
@@ -22,15 +23,20 @@ function PlatformSearch() {
 
   return (
     <div class="platform-search">
-      <input
-        class="mfg-input platform-search__text"
-        onChange={(event) => onSearchTermChange(event)}
-        type="text"
-        placeholder="Another platform?"
-      />
-      <button class="mfg-button" onClick={() => searchForPlatform()}>
-        Search
-      </button>
+      <form>
+        <input
+          class="mfg-input platform-search__text"
+          onChange={(event) => onSearchTermChange(event)}
+          type="text"
+          placeholder="Another platform?"
+        />
+        <button
+          class="mfg-button"
+          onClick={(event) => searchForPlatform(event)}
+        >
+          Search
+        </button>
+      </form>
       <ul>
         {platforms.map((p) => (
           <li>
