@@ -34,6 +34,9 @@ const FaveGamePicker = (props) => {
     setGameId(gameId);
     const platformIds = gameResults.find((result) => `${result.id}` === gameId)
       .platforms;
+    if (platformIds && platformIds.length) {
+      setPlatformId(platformIds[0]);
+    }
     faveGamesService.platformsByIds(platformIds, (platforms) => {
       setGamePlatforms(platforms);
     });
