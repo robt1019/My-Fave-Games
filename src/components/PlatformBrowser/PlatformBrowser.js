@@ -3,7 +3,7 @@ import PlatformCard from "../PlatformCard/PlatformCard";
 import faveGamesService from "../../services/fave-games.service";
 import { Link } from "react-router-dom";
 import "./PlatformBrowser.css";
-import { quickPlatformLinkIds } from "../../App";
+import { quickPlatformLinkIds } from "../../index";
 
 function Home() {
   const [platforms, setPlatforms] = useState([]);

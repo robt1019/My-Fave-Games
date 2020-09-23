@@ -7,8 +7,6 @@ import Loading from "./components/Loading/Loading";
 import { BrowserRouter } from "react-router-dom";
 import faveGamesService from "./services/fave-games.service";
 
-export const quickPlatformLinkIds = [48, 130, 6, 49];
-
 function App() {
   useEffect(() => {
     faveGamesService.onLoadingStateChange((loadingState) => {
@@ -20,25 +18,6 @@ function App() {
         document.querySelector(".app__container").classList.remove("hidden");
       }
     });
-  }, []);
-
-  useEffect(() => {
-    // preload platforms and images
-    quickPlatformLinkIds.forEach((platformId) => {
-      faveGamesService.faveGamesByPlatform(platformId, (faveGames) => {
-        faveGamesService.gamesByIds(
-          faveGames.map((g) => g.gameId),
-          (fetchedGames) => {
-            fetchedGames.forEach((fetchedGame) => {
-              const img = new Image();
-              img.src = fetchedGame.screenshots[0].url;
-            });
-          }
-        );
-      });
-    });
-
-    faveGamesService.platformsByIds(quickPlatformLinkIds, () => {});
   }, []);
 
   return (
