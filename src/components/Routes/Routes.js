@@ -20,8 +20,11 @@ const Routes = () => {
           faveGamesService.gamesByIds(
             faveGames.map((g) => g.gameId),
             (fetchedGames) => {
-              fetchedGames.forEach((fetchedGame) => {
-                faveGamesService.platformById(fetchedGame.platformId, () => {});
+              fetchedGames.forEach((fetchedGame, gameIndex) => {
+                faveGamesService.platformById(
+                  faveGames[gameIndex].platformId,
+                  () => {}
+                );
                 const img = new Image();
                 img.src = fetchedGame.screenshots[0].url;
               });

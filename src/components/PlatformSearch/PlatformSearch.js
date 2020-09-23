@@ -22,16 +22,16 @@ function PlatformSearch() {
   };
 
   return (
-    <div class="platform-search">
+    <div className="platform-search">
       <form>
         <input
-          class="mfg-input platform-search__text"
+          className="mfg-input platform-search__text"
           onChange={(event) => onSearchTermChange(event)}
           type="text"
           placeholder="Another platform?"
         />
         <button
-          class="mfg-button"
+          className="mfg-button"
           onClick={(event) => searchForPlatform(event)}
         >
           Search

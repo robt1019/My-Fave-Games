@@ -177,7 +177,9 @@ const platformsByIds = (ids, callback) => {
     )
       .then((response) => response && response.json())
       .then((data) => {
-        data.forEach((platform) => (platformsById[data.id] = platform));
+        data.forEach((p) => {
+          platformsById[p.id] = p;
+        });
         loaded();
         callback(data);
       });
@@ -186,7 +188,7 @@ const platformsByIds = (ids, callback) => {
 
 const platformById = (id, callback) => {
   loading();
-  if (platformsById[id] && platformsById[id].name) {
+  if (platformsById[id]) {
     loaded();
     callback(platformsById[id]);
   } else {
