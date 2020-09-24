@@ -8,6 +8,12 @@ const platformsById = {
   },
 };
 
+let platformFaveGames = {};
+
+let faveGamesByUser = {};
+
+let cachedFaveGames = undefined;
+
 let cachedUser = undefined;
 
 let loadingStateListener;
@@ -204,14 +210,20 @@ const platformById = (id, callback) => {
 
 const faveGamesByPlatform = (platformId, callback) => {
   loading();
-  fetch(
-    `${process.env.REACT_APP_FAVE_GAMES_API}/platform-fave-games/${platformId}`
-  )
-    .then((response) => response && response.json())
-    .then((data) => {
-      loaded();
-      callback(data);
-    });
+  if (platformFaveGames[platformId]) {
+    callback(platformFaveGames[platformId]);
+    loaded();
+  } else {
+    fetch(
+      `${process.env.REACT_APP_FAVE_GAMES_API}/platform-fave-games/${platformId}`
+    )
+      .then((response) => response && response.json())
+      .then((data) => {
+        loaded();
+        callback(data);
+        platformFaveGames[platformId] = data;
+      });
+  }
 };
 
 const createFaveGame = (token, faveGame, callback) => {
@@ -265,27 +277,39 @@ const deleteFaveGame = (token, faveGameId, callback) => {
 
 const userFaveGames = (userId, callback) => {
   loading();
-  fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/my-fave-games/${userId}`)
-    .then((response) => response && response.json())
-    .then((data) => {
-      loaded();
-      callback(data);
-    });
+  if (faveGamesByUser[userId]) {
+    callback(faveGamesByUser[userId]);
+    loaded();
+  } else {
+    fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/my-fave-games/${userId}`)
+      .then((response) => response && response.json())
+      .then((data) => {
+        loaded();
+        faveGamesByUser[userId] = data;
+        callback(data);
+      });
+  }
 };
 
 const myFaveGames = (token, callback) => {
   loading();
-  fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/my-fave-games`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response && response.json())
-    .then((data) => {
-      callback(data);
-      loaded();
-    });
+  if (cachedFaveGames) {
+    loaded();
+    callback(cachedFaveGames);
+  } else {
+    fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/my-fave-games`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response && response.json())
+      .then((data) => {
+        callback(data);
+        cachedFaveGames = data;
+        loaded();
+      });
+  }
 };
 
 export default {
