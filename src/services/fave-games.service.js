@@ -10,8 +10,6 @@ const platformsById = {
 
 let platformFaveGames = {};
 
-let faveGamesByUser = {};
-
 let cachedFaveGames = undefined;
 
 let cachedUser = undefined;
@@ -238,6 +236,7 @@ const createFaveGame = (token, faveGame, callback) => {
   })
     .then((response) => response && response.json())
     .then((createdGame) => {
+      cachedFaveGames.push(createdGame);
       loaded();
       callback(createdGame);
     });
@@ -256,6 +255,9 @@ const editFaveGame = (token, update, callback) => {
       },
     }
   ).then(() => {
+    cachedFaveGames = cachedFaveGames.map((g) =>
+      g.id === update.gameId ? { ...g, reasons: update.reasons } : g
+    );
     callback();
     loaded();
   });
@@ -270,6 +272,7 @@ const deleteFaveGame = (token, faveGameId, callback) => {
       "Content-Type": "application/json",
     },
   }).then(() => {
+    cachedFaveGames = cachedFaveGames.filter((g) => g.id !== faveGameId);
     loaded();
     callback();
   });
@@ -277,15 +280,14 @@ const deleteFaveGame = (token, faveGameId, callback) => {
 
 const userFaveGames = (userId, callback) => {
   loading();
-  if (faveGamesByUser[userId]) {
-    callback(faveGamesByUser[userId]);
+  if (cachedUser && userId === cachedUser.userId && cachedFaveGames) {
+    callback(cachedFaveGames);
     loaded();
   } else {
     fetch(`${process.env.REACT_APP_FAVE_GAMES_API}/my-fave-games/${userId}`)
       .then((response) => response && response.json())
       .then((data) => {
         loaded();
-        faveGamesByUser[userId] = data;
         callback(data);
       });
   }
