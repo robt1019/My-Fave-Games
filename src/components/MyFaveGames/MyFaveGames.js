@@ -54,12 +54,12 @@ const FaveGames = () => {
   };
 
   const gameAdded = (game) => {
+    setGamesLoaded(false);
     faveGamesService.createFaveGame(token, game, (createdGame) => {
-      faveGamesService.gameById(createdGame.gameId, () => {
-        if (createdGame) {
-          setFaveGames([...faveGames, createdGame]);
-        }
-      });
+      if (createdGame) {
+        setFaveGames([...faveGames, createdGame]);
+      }
+      setGamesLoaded(true);
     });
   };
 
@@ -68,17 +68,21 @@ const FaveGames = () => {
       "Are you sure you want to delete this previously favourited game!?! I won't be able to get it back for you if you change your mind..."
     );
     if (shouldDelete) {
+      setGamesLoaded(false);
       faveGamesService.deleteFaveGame(token, gameId, () => {
         setFaveGames(faveGames.filter((g) => g.id !== gameId));
+        setGamesLoaded(true);
       });
     }
   };
 
   const editGame = (gameId, reasons) => {
+    setGamesLoaded(false);
     faveGamesService.editFaveGame(token, { gameId, reasons }, () => {
       setFaveGames(
         faveGames.map((g) => (g.id === gameId ? { ...g, reasons } : g))
       );
+      setGamesLoaded(true);
     });
   };
 

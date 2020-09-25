@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./FaveGamePicker.css";
 import "../../shared-styles/Buttons.css";
 import "../../shared-styles/Inputs.css";
+import Loading from "../Loading/Loading";
 
 const FaveGamePicker = (props) => {
   const [platformId, setPlatformId] = useState(undefined);
@@ -11,9 +12,11 @@ const FaveGamePicker = (props) => {
   const [gameResults, setGameResults] = useState([]);
   const [gamePlatforms, setGamePlatforms] = useState([]);
   const [reasons, setReasons] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const searchForGame = (event) => {
     event.preventDefault();
+    setLoading(true);
     faveGamesService.searchGames(gameSearchTerm, (results) => {
       setGameResults(results);
       setGameId(results[0] && results[0].id);
@@ -21,6 +24,7 @@ const FaveGamePicker = (props) => {
       faveGamesService.platformsByIds(platformIds, (platforms) => {
         setGamePlatforms(platforms);
         setPlatformId(platforms[0] && platforms[0].id);
+        setLoading(false);
       });
     });
   };
@@ -58,60 +62,66 @@ const FaveGamePicker = (props) => {
   };
 
   return (
-    <div className="fave-game-picker">
-      <form>
-        <input
-          className="mfg-input fave-game-picker__game-name"
-          name="gameName"
-          type="text"
-          placeholder="game name"
-          value={gameSearchTerm}
-          onChange={(event) => handleGameSearchTermChange(event)}
-        ></input>
-        <button
-          className="mfg-button dark"
-          value="search"
-          onClick={(event) => searchForGame(event)}
-        >
-          search
-        </button>
-      </form>
-      {gameId ? (
-        <form>
-          <select
-            className="mfg-select"
-            onChange={(event) => handleGameChange(event)}
-          >
-            {gameResults.map((g) => (
-              <option key={g.id} value={g.id}>
-                {g.name}
-              </option>
-            ))}
-          </select>
-          <select
-            className="mfg-select"
-            onChange={(event) => handlePlatformChange(event)}
-          >
-            {gamePlatforms.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.name}
-              </option>
-            ))}
-          </select>
-          <textarea
-            className="mfg-input fave-game-picker__reasons"
-            placeholder="what is good about it?"
-            onChange={(event) => handleReasonsChange(event)}
-          />
-          <button
-            className="mfg-button dark"
-            onClick={(event) => addFaveGame(event)}
-          >
-            add
-          </button>
-        </form>
-      ) : null}
-    </div>
+    <React.Fragment>
+      {!loading ? (
+        <div className="fave-game-picker">
+          <form>
+            <input
+              className="mfg-input fave-game-picker__game-name"
+              name="gameName"
+              type="text"
+              placeholder="game name"
+              value={gameSearchTerm}
+              onChange={(event) => handleGameSearchTermChange(event)}
+            ></input>
+            <button
+              className="mfg-button dark"
+              value="search"
+              onClick={(event) => searchForGame(event)}
+            >
+              search
+            </button>
+          </form>
+          {gameId ? (
+            <form>
+              <select
+                className="mfg-select"
+                onChange={(event) => handleGameChange(event)}
+              >
+                {gameResults.map((g) => (
+                  <option key={g.id} value={g.id}>
+                    {g.name}
+                  </option>
+                ))}
+              </select>
+              <select
+                className="mfg-select"
+                onChange={(event) => handlePlatformChange(event)}
+              >
+                {gamePlatforms.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name}
+                  </option>
+                ))}
+              </select>
+              <textarea
+                className="mfg-input fave-game-picker__reasons"
+                placeholder="what is good about it?"
+                onChange={(event) => handleReasonsChange(event)}
+              />
+              <button
+                className="mfg-button dark"
+                onClick={(event) => addFaveGame(event)}
+              >
+                add
+              </button>
+            </form>
+          ) : null}
+        </div>
+      ) : (
+        <Loading />
+      )}
+    </React.Fragment>
   );
 };
 
