@@ -57,12 +57,8 @@ const FaveGame = (props) => {
           </button>
         </React.Fragment>
       ) : null}
-      <div>
-        <img
-          src={screenshot}
-          alt={`${game.name} screenshot`}
-          className="fave-game__screenshot"
-        ></img>
+      <div className="fave-game__screenshot">
+        <img src={screenshot} alt={`${game.name} screenshot`}></img>
       </div>
       <div className="fave-game__info">
         <h3>Why is it good?</h3>
