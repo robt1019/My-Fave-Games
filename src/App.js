@@ -1,25 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.css";
 import { Auth0Provider } from "@auth0/auth0-react";
 import Routes from "./components/Routes/Routes";
 import Header from "./components/Header/Header";
-import Loading from "./components/Loading/Loading";
 import { BrowserRouter } from "react-router-dom";
-import faveGamesService from "./services/fave-games.service";
 
 function App() {
-  useEffect(() => {
-    faveGamesService.onLoadingStateChange((loadingState) => {
-      if (loadingState === "loading") {
-        document.querySelector(".app__container").classList.add("hidden");
-        document.querySelector(".app__loading").classList.remove("hidden");
-      } else {
-        document.querySelector(".app__loading").classList.add("hidden");
-        document.querySelector(".app__container").classList.remove("hidden");
-      }
-    });
-  }, []);
-
   return (
     <Auth0Provider
       domain="my-fave-games-dev.eu.auth0.com"
@@ -35,9 +21,6 @@ function App() {
           <Header />
           <Routes />
         </BrowserRouter>
-      </div>
-      <div className="app__loading">
-        <Loading></Loading>
       </div>
     </Auth0Provider>
   );

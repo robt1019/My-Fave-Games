@@ -1,6 +1,6 @@
 .fave-game-picker__reasons {
   width: calc(100% - 16px);
-  height: 60vh;
+  height: calc(60vh - 125px);
 }
 
 .fave-game-picker__game-name {

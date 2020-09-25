@@ -6,6 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import faveGamesService from "../../services/fave-games.service";
 import "../../shared-styles/Buttons.css";
 import { Link } from "react-router-dom";
+import Loading from "../Loading/Loading";
 
 const FaveGames = () => {
   const { getAccessTokenSilently, getIdTokenClaims } = useAuth0();
@@ -14,6 +15,8 @@ const FaveGames = () => {
   const [faveGames, setFaveGames] = useState([]);
   const [showGameModal, setShowGameModal] = useState(false);
   const [user, setUser] = useState({});
+  const [gamesLoaded, setGamesLoaded] = useState(false);
+  const [userLoaded, setUserLoaded] = useState(false);
 
   useEffect(() => {
     async function getUserStuff() {
@@ -22,12 +25,14 @@ const FaveGames = () => {
         setToken(accessToken);
         faveGamesService.me(accessToken, (userInfo) => {
           setUser(userInfo);
+          setUserLoaded(true);
         });
         faveGamesService.myFaveGames(accessToken, (games) => {
           faveGamesService.gamesByIds(
             games.map((g) => g.gameId),
             () => {
               setFaveGames(games);
+              setGamesLoaded(true);
             }
           );
         });
@@ -78,37 +83,43 @@ const FaveGames = () => {
   };
 
   return (
-    <div className="my-fave-games">
-      {!showGameModal ? (
-        <div>
-          <h1>{user.username} Fave Games</h1>
-          <button
-            onClick={() => {
-              addNewGame();
-            }}
-            className="mfg-button"
-          >
-            Add new fave game
-          </button>
-          <div className="my-fave-games__public-list-link">
-            <Link to={`/fave-games/${user.userId}`}>See public list</Link>
-          </div>
-          {faveGames.map((g) => (
-            <div className="my-fave-games__fave-game" key={g.id}>
-              <FaveGame
-                faveGame={g}
-                isEditable={true}
-                onDelete={() => deleteGame(g.id)}
-                onEdit={(reasons) => editGame(g.id, reasons)}
-              />
+    <div>
+      {userLoaded && gamesLoaded ? (
+        <div className="my-fave-games">
+          {!showGameModal ? (
+            <div>
+              <h1>{user.username} Fave Games</h1>
+              <button
+                onClick={() => {
+                  addNewGame();
+                }}
+                className="mfg-button"
+              >
+                Add new fave game
+              </button>
+              <div className="my-fave-games__public-list-link">
+                <Link to={`/fave-games/${user.userId}`}>See public list</Link>
+              </div>
+              {faveGames.map((g) => (
+                <div className="my-fave-games__fave-game" key={g.id}>
+                  <FaveGame
+                    faveGame={g}
+                    isEditable={true}
+                    onDelete={() => deleteGame(g.id)}
+                    onEdit={(reasons) => editGame(g.id, reasons)}
+                  />
+                </div>
+              ))}
             </div>
-          ))}
+          ) : (
+            <FaveGameForm
+              gameAdded={(game) => gameAdded(game)}
+              formClosed={() => setShowGameModal(false)}
+            />
+          )}
         </div>
       ) : (
-        <FaveGameForm
-          gameAdded={(game) => gameAdded(game)}
-          formClosed={() => setShowGameModal(false)}
-        />
+        <Loading />
       )}
     </div>
   );
