@@ -102,7 +102,7 @@ const FaveGames = () => {
                 Add new fave game
               </button>
               <div className="my-fave-games__public-list-link">
-                <Link to={`/fave-games/${user.userId}`}>See public list</Link>
+                <Link to={`/fave-games/${user.userId}`}>Shareable list</Link>
               </div>
               {faveGames.map((g) => (
                 <div className="my-fave-games__fave-game" key={g.id}>
