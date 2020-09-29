@@ -92,7 +92,7 @@ const FaveGames = () => {
         <div className="my-fave-games">
           {!showGameModal ? (
             <div>
-              <h1>{user.username} Fave Games</h1>
+              <h1>{user.username} Top 5</h1>
               <button
                 onClick={() => {
                   addNewGame();

@@ -27,12 +27,11 @@ const Header = () => {
             </li>
           ) : (
             <li>
-              <Link onClick={(event) => login(event)}>My list</Link>
+              <Link to="" onClick={(event) => login(event)}>
+                My list
+              </Link>
             </li>
           )}
-          <li>
-            <Link to="/user-search">Users</Link>
-          </li>
           <li>{isAuthenticated ? <LogoutButton /> : null}</li>
         </ul>
       </nav>

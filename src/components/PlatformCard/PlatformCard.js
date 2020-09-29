@@ -4,7 +4,7 @@ import "./PlatformCard.css";
 const platformFaveGames = (props) => {
   return (
     <div className="platform-card">
-      <h1>{props.platform.name} fave games</h1>
+      <h1>{props.platform.name} Top 5</h1>
     </div>
   );
 };

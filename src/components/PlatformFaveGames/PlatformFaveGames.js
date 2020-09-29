@@ -27,7 +27,7 @@ const PlatformFaveGames = () => {
     <React.Fragment>
       {platformLoaded && gamesLoaded ? (
         <div>
-          <h1>Top 5 {platform.name} Fave Games</h1>
+          <h1>Top 5 {platform.name} Games</h1>
           {faveGames.map((g) => (
             <React.Fragment key={g.gameId}>
               <PlatformFaveGame game={g} />
