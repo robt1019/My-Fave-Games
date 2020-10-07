@@ -4,12 +4,11 @@ import FaveGame from "../FaveGame/FaveGame";
 import FaveGameForm from "../FaveGameForm/FaveGameForm";
 import { useAuth0 } from "@auth0/auth0-react";
 import faveGamesService from "../../services/fave-games.service";
-import "../../shared-styles/Buttons.css";
 import { Link } from "react-router-dom";
 import Loading from "../Loading/Loading";
 
 const FaveGames = () => {
-  const { getAccessTokenSilently, getIdTokenClaims } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
 
   const [token, setToken] = useState();
   const [faveGames, setFaveGames] = useState([]);
@@ -41,7 +40,7 @@ const FaveGames = () => {
       }
     }
     getUserStuff();
-  }, [getAccessTokenSilently, getIdTokenClaims]);
+  }, [getAccessTokenSilently]);
 
   const addNewGame = () => {
     if (faveGames.length < 5) {

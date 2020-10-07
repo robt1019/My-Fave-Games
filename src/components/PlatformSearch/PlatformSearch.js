@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import faveGamesService from "../../services/fave-games.service";
-import "../../shared-styles/Inputs.css";
-import "../../shared-styles/Buttons.css";
 import "./PlatformSearch.css";
 
 function PlatformSearch() {

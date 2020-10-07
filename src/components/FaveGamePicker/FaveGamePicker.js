@@ -1,8 +1,6 @@
 import faveGamesService from "../../services/fave-games.service";
 import React, { useState } from "react";
 import "./FaveGamePicker.css";
-import "../../shared-styles/Buttons.css";
-import "../../shared-styles/Inputs.css";
 import Loading from "../Loading/Loading";
 
 const FaveGamePicker = (props) => {

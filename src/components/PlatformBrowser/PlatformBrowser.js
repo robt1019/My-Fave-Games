@@ -16,7 +16,7 @@ function PlatformBrowser() {
   }, []);
 
   return (
-    <div>
+    <div className="platform-browser">
       {platforms && platforms.length ? (
         platforms.map((p) => (
           <Link key={p.id} to={`platform-fave-games/${p.id}`}>

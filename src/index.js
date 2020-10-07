@@ -4,6 +4,8 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import faveGamesService from "./services/fave-games.service";
+import "./shared-styles/Buttons.css";
+import "./shared-styles/Inputs.css";
 
 require("dotenv").config();
 

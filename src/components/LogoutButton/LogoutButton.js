@@ -1,6 +1,5 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import "../../shared-styles/Buttons.css";
 import faveGamesService from "../../services/fave-games.service";
 
 const LogoutButton = () => {

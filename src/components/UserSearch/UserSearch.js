@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import faveGamesService from "../../services/fave-games.service";
 import { Link } from "react-router-dom";
 import Loading from "../Loading/Loading";
-import "../../shared-styles/Inputs.css";
-import "../../shared-styles/Buttons.css";
 import "./UserSearch.css";
 
 const UserFaveGames = () => {
